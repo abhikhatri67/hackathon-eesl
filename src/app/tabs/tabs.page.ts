@@ -26,7 +26,7 @@ export class TabsPage {
   dataSend: string = "";
   dataReceived: string = "";
   selectedItem: any;
-
+  logData=[];
   constructor(
     // public loadingController: LoadingController,
     private geolocation: Geolocation,
@@ -77,15 +77,17 @@ export class TabsPage {
       console.log("Some data recieved")
       console.log(data);
     }else{
-      console.log("no data this time")
+      let [mac,ts,batteryPercent,amp]=data.split(",");
+      let dataobj={mac,ts,batteryPercent,amp};
+      this.logData.push(dataobj);
     }
   }
   errorParse(data){
     if(!data){
       console.log("Some error")
-      console.log(data);
+      
     }else{
-      console.log("Error no data this time")
+      
     }
   }
   //-l -c -s
