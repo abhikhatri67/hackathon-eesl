@@ -35,6 +35,7 @@
     "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-googlemaps": "2.6.2",
     "core-js": "^2.5.4",
+    "ng2-google-charts": "^4.0.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "uk.co.workingedge.phonegap.plugin.launchnavigator": "5.0.4",
@@ -90,7 +91,8 @@
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-        "GOOGLE_API_KEY_FOR_ANDROID": "AIzaSyCxP35c75geeUg3XlhttL78rBW033VqKNk"
+        "GOOGLE_API_KEY_FOR_ANDROID": "AIzaSyCxP35c75geeUg3XlhttL78rBW033VqKNk",
+        "OKHTTP_VERSION": "3.12.0"
       }
     },
     "platforms": [
