@@ -35,8 +35,9 @@ export class TabsPage {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
   ) {
-    // this.showError("consdd");
+    // this.presentToast("consdd");
     // this.presentToast("const");
+    console.log("works")
     this.checkBluetoothEnabled();
   }
   async presentToast(msg) {
@@ -49,13 +50,13 @@ export class TabsPage {
   checkBluetoothEnabled() {
     this.bs.isEnabled().then(
       success => {
-        // this.showError("the blue tooth is enabled");
+        // this.presentToast("the blue tooth is enabled");
         // this.presentToast("the blue tooth is enabled");
         this.listPairedDevices();
       },
       error => {
         console.log(error);
-        this.presentToast("bluetoothenabled error");
+        this.presentToast("bluetooth enabled error");
         if (this.bs.available) {
           this.bs
             .enable()
@@ -63,26 +64,42 @@ export class TabsPage {
               this.listPairedDevices();
             })
             .catch(err => {
-              this.showError("Unable to Start Bluetooth");
+              this.presentToast("Unable to Start Bluetooth");
             });
         } else {
-          this.showError("Bluetooth not available");
+          this.presentToast("Bluetooth not available");
         }
       }
     );
   }
   parseData(data){
-    this.presentToast(data);
+    if(!data){
+      console.log("Some data recieved")
+      console.log(data);
+    }else{
+      console.log("no data this time")
+    }
   }
+  errorParse(data){
+    if(!data){
+      console.log("Some error")
+      console.log(data);
+    }else{
+      console.log("Error no data this time")
+    }
+  }
+  //-l -c -s
   connectToDevice(devices) {
     // find BLE_PI
     let connectTo = devices.filter(device=>device.name==="BLE_PI")
     this.bs.connect(connectTo[0].address).subscribe(d=>{
-      this.presentToast("bluetooth connected");
-      // this.bs.subscribe('\n').subscribe(this.parseData,this.presentToast);
-      this.bs.read().then(this.presentToast).catch(this.presentToast);
+        console.log(d);
+      // this.presentToast("bluetooth connected");
+      // this.bs.subscribeRawData().subscribe(d=>{console.log(d);this.parseData(d)},this.errorParse);
+      this.bs.subscribe('\n').subscribe(d=>{console.log(d);this.parseData(d)},this.parseData);
+      // this.bs.read().then(this.parseData).catch(this.parseData);
     }, err => {
-      this.presentToast(err);
+      // this.presentToast(err);
     });
 
     // this.presentToast(JSON.stringify(devices));
@@ -92,15 +109,15 @@ export class TabsPage {
     this.bs.list().then(
       success => {
         // this.presentToast("listPaireddevices: success")
-        // this.showError(JSON.stringify(success));
+        // this.presentToast(JSON.stringify(success));
         this.pairedList = success;
         // this.presentToast(JSON.stringify(this.pairedList));
         this.connectToDevice(success);
         this.listToggle = true;
       },
       error => {
-        this.showError(JSON.stringify(error));
-        this.showError("Please Enable Bluetooth");
+        this.presentToast(JSON.stringify(error));
+        this.presentToast("Please Enable Bluetooth");
         this.bs.enable();
         this.listToggle = false;
       }
