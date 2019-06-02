@@ -1,5 +1,7 @@
 {
   "name": "ev-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
