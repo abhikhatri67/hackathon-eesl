@@ -9,12 +9,13 @@ import { TabsPageRoutingModule } from './tabs.router.module';
 import {BluetoothSerial} from '@ionic-native/bluetooth-serial/ngx';
 import { TabsPage } from './tabs.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
   ],
   declarations: [TabsPage],
   providers:[Geolocation,BluetoothSerial, LaunchNavigator]
